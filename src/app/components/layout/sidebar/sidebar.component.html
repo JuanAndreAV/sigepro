@@ -1,0 +1,15 @@
+ 
+   <div class="mb-8 flex items-center justify-center">
+    <img src="/assets/logo-sigepro-white.svg" alt="SIGEPRO Logo" class="h-10">
+   </div>
+   
+   <nav class="flex-grow">
+    @for(item of routes; track item.id) {
+            <a [routerLink]="item.path" 
+            routerLinkActive="bg-blue-800" 
+            class="block py-2 px-4 hover:bg-gray-700 rounded">{{item.title}}</a>
+    }
+    
+   </nav>
+
+
