@@ -18,8 +18,14 @@ export class SidebarComponent {
   },
   {
     id: 2,
+    path: '/dashboard/entry',
+    title: 'Nuevo Lote',
+    icon: 'entry',
+  },
+  {
+    id: 3,
     path: '/dashboard/reports',
-    title: 'Reports',
+    title: 'Reportes',
     icon: 'report',
   }
  ]
