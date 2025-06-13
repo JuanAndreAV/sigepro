@@ -7,24 +7,23 @@
         </div>
 
         <!-- Formulario -->
-        <form>
+        <form [formGroup]="entryForm()">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Campo: Proveedor -->
                 <div class="md:col-span-2">
                     <label for="proveedor" class="block text-sm font-medium text-gray-700 mb-1">Proveedor</label>
-                    <select id="proveedor" name="proveedor" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                        <option>Seleccione un proveedor...</option>
-                        <option value="prov1">Frigorífico Andino</option>
-                        <option value="prov2">Carnes del Sur</option>
-                        <option value="prov3">Distribuidora La Pampa</option>
+                    <select id="proveedor" formControlName="proveedor" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option>Distribuidora La Pampa</option>
+                        <option>Frigorífico Andino</option>
+                        <option>Carnes del Sur</option>
+                        <option>Distribuidora La Pampa</option>
                     </select>
                 </div>
                 
                 <!-- Campo: Producto -->
                 <div>
                     <label for="producto" class="block text-sm font-medium text-gray-700 mb-1">Producto</label>
-                    <select id="producto" name="producto" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                        <option>Seleccione un producto...</option>
+                    <select id="producto" formControlName="producto" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <option value="lomo">Lomo Fino</option>
                         <option value="costilla">Costilla de Cerdo</option>
                     </select>
@@ -33,7 +32,7 @@
                 <!-- Campo: Peso de Ingreso -->
                 <div>
                     <label for="peso-ingreso" class="block text-sm font-medium text-gray-700 mb-1">Peso de Ingreso (Kg)</label>
-                    <input type="number" id="peso-ingreso" name="peso-ingreso" step="0.01" placeholder="Ej: 50.25" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <input type="number" id="peso-ingreso" formControlName="peso" step="0.01" placeholder="Ej: 50.25" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <!-- Campo: Precio -->
@@ -41,27 +40,27 @@
                     <label for="precio" class="block text-sm font-medium text-gray-700 mb-1">Precio (por Kg)</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">$</span>
-                        <input type="number" id="precio" name="precio" step="0.01" placeholder="Ej: 15000" class="pl-7 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <input type="number" id="precio" formControlName="precio" step="0.01" placeholder="Ej: 15000" class="pl-7 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                     </div>
                 </div>
 
                 <!-- CAMPO AÑADIDO: Fecha de Ingreso -->
                 <div>
                     <label for="fecha-ingreso" class="block text-sm font-medium text-gray-700 mb-1">Fecha de Ingreso</label>
-                    <input type="date" id="fecha-ingreso" name="fecha-ingreso" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <input type="date" id="fecha-ingreso" formControlName="fecha" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                  <!-- Campo: Número de Lote/Factura del Proveedor (ahora en ancho completo) -->
                 <div class="md:col-span-2">
                     <label for="lote-proveedor" class="block text-sm font-medium text-gray-700 mb-1">Lote/Factura Proveedor</label>
-                    <input type="text" id="lote-proveedor" name="lote-proveedor" placeholder="Ej: FAC-12345" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <input type="text" id="lote-proveedor" formControlName="factura" name="lote-proveedor" placeholder="Ej: FAC-12345" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
             </div>
 
             <!-- Botón de Acción -->
             <div class="mt-8">
-                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                <button [disabled]="!entryForm().valid" (keyup.enter)="sendForm()" (click)="sendForm()" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
                     Guardar Lote y Dejar Pendiente
                 </button>
             </div>
