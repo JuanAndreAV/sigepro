@@ -3,6 +3,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.compon
 import { HomeComponent } from './pages/home/home.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { LotEntryFormComponent } from './pages/lot-entry-form/lot-entry-form.component';
+import { LotesListComponent } from './pages/lotes-list/lotes-list.component';
+import { LotProcessFormComponent } from './pages/lot-process-form/lot-process-form.component';
 
 
 export const routes: Routes = [
@@ -21,6 +23,14 @@ export const routes: Routes = [
             {
                 path: 'entry',
                 component: LotEntryFormComponent
+            },
+            {
+                path: 'lotes-list',
+                component: LotesListComponent
+            },
+            {
+                path: 'process',
+                component: LotProcessFormComponent
             }
 
         ]

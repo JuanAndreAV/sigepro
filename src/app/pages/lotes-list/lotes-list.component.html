@@ -1,0 +1,111 @@
+<div class="container mx-auto p-4 md:p-8">
+        <!-- Encabezado y filtros -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4 md:mb-0">Gestión de Lotes</h1>
+            <div class="flex items-center space-x-4">
+                <label for="status-filter" class="text-sm font-medium text-gray-700">Filtrar por estado:</label>
+                <select id="status-filter" class="block w-48 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <option value="all">Todos</option>
+                    <option value="pending">Pendiente de Procesar</option>
+                    <option value="finished">Finalizado</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Contenedor de la tabla con scroll horizontal en móviles -->
+        <div class="bg-white rounded-lg shadow-md overflow-x-auto">
+            <table class="min-w-full leading-normal">
+                <!-- Encabezado de la tabla -->
+                <thead>
+                    <tr class="border-b-2 border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        <th class="px-5 py-3">ID Lote</th>
+                        <th class="px-5 py-3">Proveedor</th>
+                        <th class="px-5 py-3">Producto</th>
+                        <th class="px-5 py-3">Fecha Ingreso</th>
+                        <th class="px-5 py-3 text-center">Estado</th>
+                        <th class="px-5 py-3 text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <!-- Cuerpo de la tabla -->
+                <tbody>
+                    <!-- Fila 1: Lote Pendiente (con botón de acción) -->
+                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                        <td class="px-5 py-4 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap font-semibold">LOTE-00123</p>
+                            <p class="text-gray-600 whitespace-no-wrap text-xs">Factura: FAC-12345</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">Frigorífico Andino</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">Lomo Fino</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">12/06/2025</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm text-center">
+                            <span class="relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
+                                <span aria-hidden="true" class="absolute inset-0 bg-yellow-200 opacity-50 rounded-full"></span>
+                                <span class="relative">Pendiente</span>
+                            </span>
+                        </td>
+                        <td class="px-5 py-4 text-sm text-center">
+                            <a routerLink="/dashboard/process" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold py-2 px-4 rounded-full transition-colors">
+                                Procesar
+                            </a>
+                        </td>
+                    </tr>
+
+                    <!-- Fila 2: Lote Finalizado (sin botón de acción, con ícono) -->
+                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                        <td class="px-5 py-4 text-sm">
+                             <p class="text-gray-900 whitespace-no-wrap font-semibold">LOTE-00122</p>
+                            <p class="text-gray-600 whitespace-no-wrap text-xs">Factura: FAC-12301</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">Carnes del Sur</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">Costilla de Cerdo</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">11/06/2025</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm text-center">
+                            <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                <span aria-hidden="true" class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                                <span class="relative">Finalizado</span>
+                            </span>
+                        </td>
+                        <td class="px-5 py-4 text-sm text-center">
+                            <!-- En lugar del botón, se puede poner un ícono para ver detalles -->
+                            <button class="text-gray-500 hover:text-gray-700 p-2 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.022 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    
+                    <!-- Aquí se agregarían más filas dinámicamente -->
+
+                </tbody>
+            </table>
+
+            <!-- Paginación de la tabla -->
+            <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
+                <span class="text-xs xs:text-sm text-gray-900">
+                    Mostrando 1 a 2 de 15 Lotes
+                </span>
+                <div class="inline-flex mt-2 xs:mt-0">
+                    <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
+                        Anterior
+                    </button>
+                    <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>

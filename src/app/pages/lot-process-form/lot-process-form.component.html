@@ -1,0 +1,86 @@
+<section class="bg-gray-100 flex items-center justify-center min-h-screen py-10">
+
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+        <!-- Encabezado -->
+        <div class="mb-6 text-center">
+            <h2 class="text-2xl font-bold text-gray-800">Registro de Datos de Procesamiento</h2>
+            <p class="text-gray-500">Ingrese los pesos resultantes después del proceso.</p>
+        </div>
+
+        <!-- Información del Lote (Datos de solo lectura) -->
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-3">Información del Lote a Procesar</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div>
+                    <span class="font-medium text-gray-500">ID Lote SIGEPRO:</span>
+                    <p class="text-gray-900 font-semibold">LOTE-00123</p>
+                </div>
+                <div>
+                    <span class="font-medium text-gray-500">Proveedor:</span>
+                    <p class="text-gray-900 font-semibold">Frigorífico Andino</p>
+                </div>
+                <div>
+                    <span class="font-medium text-gray-500">Producto:</span>
+                    <p class="text-gray-900 font-semibold">Lomo Fino</p>
+                </div>
+                <div>
+                    <span class="font-medium text-gray-500">Peso Ingreso:</span>
+                    <p class="text-gray-900 font-semibold">50.25 Kg</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulario de Mermas -->
+        <form>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Sección de Pesos de Merma/Pérdida -->
+                <h3 class="lg:col-span-3 text-md font-semibold text-gray-600 border-b pb-2">Pesos de Merma (Kg)</h3>
+                
+                <div>
+                    <label for="merma-cordon" class="block text-sm font-medium text-gray-700 mb-1">Cordón</label>
+                    <input type="number" id="merma-cordon" name="merma-cordon" step="0.01" placeholder="0.00" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label for="merma-bolsa" class="block text-sm font-medium text-gray-700 mb-1">Bolsa</label>
+                    <input type="number" id="merma-bolsa" name="merma-bolsa" step="0.01" placeholder="0.00" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label for="merma-sangre" class="block text-sm font-medium text-gray-700 mb-1">Agua Sangre</label>
+                    <input type="number" id="merma-sangre" name="merma-sangre" step="0.01" placeholder="0.00" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label for="merma-desgorde" class="block text-sm font-medium text-gray-700 mb-1">Desgorde</label>
+                    <input type="number" id="merma-desgorde" name="merma-desgorde" step="0.01" placeholder="0.00" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+            </div>
+
+            <!-- Sección de Resultados (Calculados automáticamente) -->
+            <div class="mt-8 pt-6 border-t">
+                 <h3 class="text-md font-semibold text-gray-600 border-b pb-2 mb-4">Resultados Finales</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                         <label for="peso-neto" class="block text-sm font-medium text-gray-700 mb-1">Peso Producto Neto (Kg)</label>
+                         <input type="text" id="peso-neto" name="peso-neto" class="block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md cursor-not-allowed" readonly placeholder="Calculado...">
+                         <!-- Este campo se calcula: Peso Ingreso - Suma de todas las mermas -->
+                    </div>
+                     <div>
+                         <label for="rendimiento" class="block text-sm font-medium text-gray-700 mb-1">Rendimiento (%)</label>
+                         <input type="text" id="rendimiento" name="rendimiento" class="block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md cursor-not-allowed" readonly placeholder="Calculado...">
+                          <!-- Este campo se calcula: (Peso Producto Neto / Peso Ingreso) * 100 -->
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Botón de Acción -->
+            <div class="mt-8">
+                <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                    Finalizar y Guardar Proceso
+                </button>
+            </div>
+        </form>
+    </div>
+
+</section>

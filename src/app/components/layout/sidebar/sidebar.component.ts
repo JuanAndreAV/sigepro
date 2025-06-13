@@ -27,6 +27,12 @@ export class SidebarComponent {
     path: '/dashboard/reports',
     title: 'Reportes',
     icon: 'report',
+  },
+  {
+    id: 4,
+    path: '/dashboard/lotes-list',
+    title: 'Gestión de Lotes',
+    icon: 'list',
   }
  ]
 }
