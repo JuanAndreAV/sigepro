@@ -87,8 +87,37 @@
                             </button>
                         </td>
                     </tr>
-                    
                     <!-- Aquí se agregarían más filas dinámicamente -->
+                    @for(lote of loteService.lotes(); track lote.proveedor){
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                        <td class="px-5 py-4 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap font-semibold">{{lote.loteProveedorRef}}</p>
+                            <p class="text-gray-600 whitespace-no-wrap text-xs">Factura: {{lote.factura}}</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">{{lote.proveedor}}</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">{{lote.producto}}</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">{{lote.fecha}}</p>
+                        </td>
+                        <td class="px-5 py-4 text-sm text-center">
+                            <span class="relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
+                                <span aria-hidden="true" class="absolute inset-0 bg-yellow-200 opacity-50 rounded-full"></span>
+                                <span class="relative">Pendiente</span>
+                            </span>
+                        </td>
+                        <td class="px-5 py-4 text-sm text-center">
+                            <a routerLink="/dashboard/process" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold py-2 px-4 rounded-full transition-colors">
+                                Procesar
+                            </a>
+                        </td>
+                    </tr>
+                    }
+                    
+                    
 
                 </tbody>
             </table>

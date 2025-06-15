@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import {FormGroup, FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
+import { LoteService } from '../../services/lote.service';
 
 @Component({
   selector: 'app-lot-entry-form',
@@ -9,6 +10,7 @@ import {FormGroup, FormControl, ReactiveFormsModule, Validators} from '@angular/
   styleUrl: './lot-entry-form.component.css'
 })
 export class LotEntryFormComponent {
+loteService = inject(LoteService);
 
   entryForm = signal<FormGroup>(
     new FormGroup({
@@ -21,10 +23,14 @@ export class LotEntryFormComponent {
 
     })
   );
+  constructor(){
+    console.log(this.loteService.lotes())
+  }
 sendForm(){
   if(this.entryForm().valid){
-    console.log(this.entryForm().value);
+    this.loteService.createLote(this.entryForm().value)
   }
+  
   
 }
 
