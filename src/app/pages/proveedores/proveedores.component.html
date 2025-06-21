@@ -1,0 +1,78 @@
+<div class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+    <!-- Título -->
+    <div class="mb-6 text-center">
+      <h2 class="text-2xl font-bold text-gray-800">Gestión de Proveedores</h2>
+      <p class="text-gray-500">Agrega, visualiza y elimina proveedores registrados.</p>
+    </div>
+
+    <!-- Formulario Registro de Proveedor -->
+    <form [formGroup]="providerForm()" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <!-- Campo: Nombre (Obligatorio) -->
+      <div class="md:col-span-2">
+        <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre del Proveedor *</label>
+        <input type="text" id="nombre" formControlName="nombre" required
+          class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+      </div>
+
+      <!-- Campo: Nombre de Contacto -->
+      <div>
+        <label for="contacto" class="block text-sm font-medium text-gray-700 mb-1">Nombre de Contacto</label>
+        <input type="text" id="contactoNombre" formControlName="contactoNombre"
+          class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+      </div>
+
+      <!-- Campo: Teléfono -->
+      <div>
+        <label for="telefono" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+        <input type="tel" id="telefono" formControlName="telefono"
+          class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+      </div>
+
+      <!-- Campo: Email -->
+      <div class="md:col-span-2">
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+        <input type="email" id="email" formControlName="email"
+          class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+      </div>
+
+      <!-- Botón de Guardar -->
+      <div class="md:col-span-2">
+        <button type="button" (click)="addProveedor()"
+          class="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+          Registrar Proveedor
+        </button>
+      </div>
+    </form>
+
+    <!-- Tabla de Proveedores -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
+            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Contacto</th>
+            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Teléfono</th>
+            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+          </tr>
+        </thead>
+
+        @for (prov of proveedores(); track prov.nombre) {
+        <tbody class="divide-y divide-gray-200">
+          <tr>
+            <td class="px-4 py-2 text-gray-800">{{ prov.nombre }}</td>
+            <td class="px-4 py-2 text-gray-800">{{ prov.contactoNombre }}</td>
+            <td class="px-4 py-2 text-gray-800">{{ prov.telefono }}</td>
+            <td class="px-4 py-2 text-gray-800">{{ prov.email }}</td>
+            <td class="px-4 py-2">
+              <button (click)="eliminarProveedor(prov.nombre)"
+                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>}
+      </table>
+    </div>
+  </div>
+</div>
+

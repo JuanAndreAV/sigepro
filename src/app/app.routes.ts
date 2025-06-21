@@ -5,6 +5,7 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { LotEntryFormComponent } from './pages/lot-entry-form/lot-entry-form.component';
 import { LotesListComponent } from './pages/lotes-list/lotes-list.component';
 import { LotProcessFormComponent } from './pages/lot-process-form/lot-process-form.component';
+import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
 
 
 export const routes: Routes = [
@@ -31,6 +32,10 @@ export const routes: Routes = [
             {
                 path: 'process',
                 component: LotProcessFormComponent
+            },
+            {
+                path: 'proveedores',
+                component: ProveedoresComponent
             }
 
         ]

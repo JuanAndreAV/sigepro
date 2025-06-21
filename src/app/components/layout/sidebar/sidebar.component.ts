@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
+  standalone: true,
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
@@ -33,6 +34,12 @@ export class SidebarComponent {
     path: '/dashboard/lotes-list',
     title: 'Gestión de Lotes',
     icon: 'list',
+  },
+  {
+    id: 5,
+    path: '/dashboard/proveedores',
+    title: 'Proveedores',
+    icon: 'lot-entry',
   }
  ]
 }
