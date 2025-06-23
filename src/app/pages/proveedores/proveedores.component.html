@@ -43,6 +43,7 @@
           Registrar Proveedor
         </button>
       </div>
+      <h3 class="text-gree-600 font-bold">{{ successMessage()}}</h3>
     </form>
 
     <!-- Tabla de Proveedores -->
@@ -58,7 +59,7 @@
           </tr>
         </thead>
 
-        @for (prov of proveedores(); track prov.nombre) {
+        @for (prov of proveedores; track prov.id) {
         <tbody class="divide-y divide-gray-200">
           <tr>
             <td class="px-4 py-2 text-gray-800">{{ prov.nombre }}</td>
@@ -66,7 +67,7 @@
             <td class="px-4 py-2 text-gray-800">{{ prov.telefono }}</td>
             <td class="px-4 py-2 text-gray-800">{{ prov.email }}</td>
             <td class="px-4 py-2">
-              <button (click)="eliminarProveedor(prov.nombre)"
+              <button (click)="(prov.nombre)"
                 class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">Eliminar</button>
             </td>
           </tr>

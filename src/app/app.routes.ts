@@ -6,6 +6,7 @@ import { LotEntryFormComponent } from './pages/lot-entry-form/lot-entry-form.com
 import { LotesListComponent } from './pages/lotes-list/lotes-list.component';
 import { LotProcessFormComponent } from './pages/lot-process-form/lot-process-form.component';
 import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
+import { GestionProductosComponent } from './pages/gestion-productos/gestion-productos.component';
 
 
 export const routes: Routes = [
@@ -36,6 +37,10 @@ export const routes: Routes = [
             {
                 path: 'proveedores',
                 component: ProveedoresComponent
+            },
+            {
+                path: 'gestion-productos',
+                component: GestionProductosComponent
             }
 
         ]

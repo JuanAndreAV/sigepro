@@ -37,6 +37,12 @@ export class SidebarComponent {
   },
   {
     id: 5,
+    path: '/dashboard/gestion-productos',
+    title: 'Gestión de Productos',
+    icon: 'product',
+  },
+  {
+    id: 6,
     path: '/dashboard/proveedores',
     title: 'Proveedores',
     icon: 'lot-entry',

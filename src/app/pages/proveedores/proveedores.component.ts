@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Proveedores } from '../../interfaces/proveedores';
+import { ProveedoresList } from '../../interfaces/proveedores';
+import { ProveedoresService } from '../../services/proveedores.service';
+
 
 @Component({
   selector: 'app-proveedores',
@@ -9,8 +11,11 @@ import { Proveedores } from '../../interfaces/proveedores';
   templateUrl: './proveedores.component.html',
   styleUrl: './proveedores.component.css'
 })
-export class ProveedoresComponent {
-proveedores = signal<Proveedores[]>([]);
+export class ProveedoresComponent implements OnInit {
+//proveedores = signal<Proveedores[]>([]);
+proveedoresService = inject(ProveedoresService);
+proveedores: ProveedoresList[] = []
+successMessage = signal<string>('');
 
   providerForm = signal<FormGroup>(
     new FormGroup({
@@ -22,19 +27,39 @@ proveedores = signal<Proveedores[]>([]);
   );
   addProveedor(){
     if(this.providerForm().valid){
-      this.proveedores.update(proveedor=>[...proveedor , this.providerForm().value])
+      const prov = this.providerForm().value;
+      this.proveedoresService.nuevoProveedor(prov).subscribe(
+        (res) =>this.successMessage.update(()=>`Proveedor: ${res.nombre} agregado con éxito!`),
+      );
       this.providerForm().reset()
-    }
-    else{
+    }else{
       alert('Favor, ingresa el nombre del proveedor');
-      return
-    }
-    
-    
+    }  
+  };
+  ngOnInit(): void {
+    this.proveedoresService.proveedoresList()
+    .subscribe((data) => {
+      this.proveedores = data;
+    }, (err) => {
+      alert(`Error al cargar proveedores', ${err}`);
+    });
   }
+ 
+  // addProveedor(){
+  //   if(this.providerForm().valid){
+  //     this.proveedores.update(proveedor=>[...proveedor , this.providerForm().value])
+  //     this.providerForm().reset()
+  //   }
+  //   else{
+  //     alert('Favor, ingresa el nombre del proveedor');
+  //     return
+  //   }
+    
+    
+  // }
 
-  eliminarProveedor(id: any){
-    this.proveedores.update(proveedor => proveedor.filter(nombre=>nombre.nombre !== id))
-  }
+  // eliminarProveedor(id: any){
+  //   this.proveedores.update(proveedor => proveedor.filter(nombre=>nombre.nombre !== id))
+  // }
 
 }
