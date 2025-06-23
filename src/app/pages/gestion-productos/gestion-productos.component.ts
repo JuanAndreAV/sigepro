@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, FormArray, Validators } from '@angular/forms';
+import { GestionProductosService } from '../../services/gestion-productos.service';
 
 @Component({
   selector: 'app-gestion-productos',
@@ -9,6 +10,7 @@ import { FormGroup, FormControl, ReactiveFormsModule, FormArray, Validators } fr
   styleUrl: './gestion-productos.component.css'
 })
 export class GestionProductosComponent {
+  productService = inject(GestionProductosService);
 
   productoForm = signal<FormGroup>(
     new FormGroup({
@@ -34,8 +36,14 @@ export class GestionProductosComponent {
   guardarProducto() {
     if (this.productoForm().valid) {
       const productoData = this.productoForm().value;
-      console.log('Producto a guardar:', productoData);
+      this.productService.nuevoProducto(productoData)
+      .subscribe((response) =>{
+        alert(`Producto registrado con éxito`);
+      },
+      (error) =>{
+      alert(`Error al registrar el producto: ${error}`);
+    })
       // Aquí iría la lógica para guardar en la base de datos
-    }
+  }
   }
 }
