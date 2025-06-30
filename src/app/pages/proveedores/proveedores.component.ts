@@ -30,6 +30,10 @@ successMessage = signal<string>('');
       const prov = this.providerForm().value;
       this.proveedoresService.nuevoProveedor(prov).subscribe(
         (res) =>this.successMessage.update(()=>`Proveedor: ${res.nombre} agregado con éxito!`),
+        (error) =>{
+          this.successMessage.update(()=>`Error: Favor verifica la información. ${error.message}`);
+          
+        }
       );
       this.providerForm().reset()
     }else{
