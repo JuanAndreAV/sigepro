@@ -3,6 +3,8 @@ import {FormGroup, FormControl, ReactiveFormsModule, Validators} from '@angular/
 import { LoteService } from '../../services/lote.service';
 import { ProveedoresService } from '../../services/proveedores.service';
 import { ProveedoresList } from '../../interfaces/proveedores';
+import { GestionProductosService } from '../../services/gestion-productos.service';
+import { Productos } from '../../interfaces/producto';
 
 @Component({
   selector: 'app-lot-entry-form',
@@ -14,7 +16,9 @@ import { ProveedoresList } from '../../interfaces/proveedores';
 export class LotEntryFormComponent implements OnInit {
 loteService = inject(LoteService);
 proveedoresService = inject(ProveedoresService);
+productService = inject(GestionProductosService);
 proveedores = signal<ProveedoresList[]>([]);
+productos = signal<Productos[]>([])
 
   entryForm = signal<FormGroup>(
     new FormGroup({
@@ -35,7 +39,17 @@ proveedores = signal<ProveedoresList[]>([]);
     (error) =>{
       alert('Error al cargar proveedores')
     }
-  )
+  );
+  this.productService.productos().subscribe({
+      next: (productos) => {
+        // Asegurarse de que siempre sea un array
+        this.productos.set(Array.isArray(productos) ? productos : [productos]);
+      },
+      error: (error) => {
+        console.error('Error al cargar productos:', error);
+        alert('Error al cargar productos');
+      }
+    });
   }
   constructor(){
     //console.log(this.loteService.lotes())

@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, FormArray, Validators } from '@angular/forms';
 import { GestionProductosService } from '../../services/gestion-productos.service';
-
+import { Productos } from '../../interfaces/producto';
 @Component({
   selector: 'app-gestion-productos',
   standalone: true,
@@ -9,8 +9,9 @@ import { GestionProductosService } from '../../services/gestion-productos.servic
   templateUrl: './gestion-productos.component.html',
   styleUrl: './gestion-productos.component.css'
 })
-export class GestionProductosComponent {
+export class GestionProductosComponent implements OnInit {
   productService = inject(GestionProductosService);
+  productos = signal<Productos[]>([]);
 
   productoForm = signal<FormGroup>(
     new FormGroup({
@@ -31,7 +32,15 @@ export class GestionProductosComponent {
   eliminarMerma(index: number) {
     this.mermasConfigArray.removeAt(index);
   }
-
+ngOnInit(): void {
+    this.productService.productos()
+    .subscribe((response) =>{
+      this.productos.set(Array.isArray(response) ? response : [response])
+      console.log(this.productos())
+    },
+    (error) => {alert('Error al cargar productos')}
+  )
+}
   // Método para enviar el formulario
   guardarProducto() {
     if (this.productoForm().valid) {
@@ -42,8 +51,9 @@ export class GestionProductosComponent {
       },
       (error) =>{
       alert(`Error al registrar el producto: ${error}`);
-    })
-      // Aquí iría la lógica para guardar en la base de datos
+    })   
   }
-  }
+  
+  };
+  
 }

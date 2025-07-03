@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Producto } from '../interfaces/producto';
+import { Producto, Productos } from '../interfaces/producto';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,10 @@ url = 'http://localhost:3000/productos';
 
 nuevoProducto(producto: Producto){
   return this.http.post(`${this.url}`, producto);
+};
+
+productos(){
+  return this.http.get<Productos>(`${this.url}`);
 }
   
 }
