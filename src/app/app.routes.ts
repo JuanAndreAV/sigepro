@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './pages/login/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ReportsComponent } from './pages/reports/reports.component';
@@ -10,6 +11,10 @@ import { GestionProductosComponent } from './pages/gestion-productos/gestion-pro
 
 
 export const routes: Routes = [
+    {
+        path: 'login',
+        component: LoginComponent
+    },
     {
         path: 'dashboard',
         component: DashboardComponent,
@@ -47,6 +52,6 @@ export const routes: Routes = [
     },
     {
         path: "**",
-        redirectTo: "dashboard/home"
+        redirectTo: "login"
     }
 ];

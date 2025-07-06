@@ -1,21 +1,22 @@
 export interface CreateLoteDTO {
-    proveedor: number;
-    producto: number;
-    fecha: string; // Formato 'YYYY-MM-DD'
-    peso: number;
-    precio: number;
-    factura: number;
+    proveedorId: number;
+    productoId: number;
+    usuarioRegistroId: number;
+    fechaIngreso: string; // Formato 'YYYY-MM-DD'
+    pesoIngresoKg: number;
+    precioPorKg: number;
     loteProveedorRef?: string; // Opcional
 }
 
+
 export interface Lote {
-  id: number;
-  proveedorId: number;
-  productoId: number;
   fechaIngreso: string;
   pesoIngresoKg: number;
   precioPorKg: number;
   loteProveedorRef?: string;
   estado: 'Pendiente de Procesar' | 'Finalizado';
-  creadoEn: string;
+  creadoEn?: Date;
+  proveedorId: number;  // Cambiado de objeto a number
+  productoId: number;   // Cambiado de objeto a number
+  usuarioRegistroId: number; // Cambiado de objeto a number
 }

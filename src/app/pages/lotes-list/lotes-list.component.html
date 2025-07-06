@@ -88,20 +88,20 @@
                         </td>
                     </tr>
                     <!-- Aquí se agregarían más filas dinámicamente -->
-                    @for(lote of loteService.lotes(); track lote.proveedor){
+                    @for(lote of loteService.lotes(); track lote.proveedorId){
                         <tr class="border-b border-gray-200 hover:bg-gray-50">
                         <td class="px-5 py-4 text-sm">
                             <p class="text-gray-900 whitespace-no-wrap font-semibold">{{lote.loteProveedorRef}}</p>
-                            <p class="text-gray-600 whitespace-no-wrap text-xs">Factura: {{lote.factura}}</p>
+                            <p class="text-gray-600 whitespace-no-wrap text-xs">Factura: {{lote.loteProveedorRef}}</p>
                         </td>
                         <td class="px-5 py-4 text-sm">
-                            <p class="text-gray-900 whitespace-no-wrap">{{lote.proveedor}}</p>
+                            <p class="text-gray-900 whitespace-no-wrap">{{lote.proveedorId}}</p>
                         </td>
                         <td class="px-5 py-4 text-sm">
-                            <p class="text-gray-900 whitespace-no-wrap">{{lote.producto}}</p>
+                            <p class="text-gray-900 whitespace-no-wrap">{{lote.productoId}}</p>
                         </td>
                         <td class="px-5 py-4 text-sm">
-                            <p class="text-gray-900 whitespace-no-wrap">{{lote.fecha}}</p>
+                            <p class="text-gray-900 whitespace-no-wrap">{{lote.fechaIngreso}}</p>
                         </td>
                         <td class="px-5 py-4 text-sm text-center">
                             <span class="relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">

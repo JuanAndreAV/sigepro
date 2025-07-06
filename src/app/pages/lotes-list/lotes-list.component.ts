@@ -12,7 +12,7 @@ import { LoteService } from '../../services/lote.service';
 export class LotesListComponent implements OnInit  {
   loteService = inject(LoteService);
   ngOnInit(): void {
-      console.log(this.loteService.lotes())
+      //console.log(this.loteService.lotes())
   }
 
 }

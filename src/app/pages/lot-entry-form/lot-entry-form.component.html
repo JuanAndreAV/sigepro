@@ -1,71 +1,72 @@
 <div class="bg-gray-100 flex items-center justify-center min-h-screen">
-<div class="bg-white  p-8 rounded-lg shadow-lg w-full max-w-lg">
-        <!-- Encabezado del Formulario -->
-        <div class="mb-6 text-center">
-            <h2 class="text-2xl font-bold text-gray-800">Registro de Ingreso de Lote</h2>
-            <p class="text-gray-500">Información inicial de la materia prima recibida.</p>
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+    <!-- Encabezado del Formulario -->
+    <div class="mb-6 text-center">
+      <h2 class="text-2xl font-bold text-gray-800">Registro de Ingreso de Lote</h2>
+      <p class="text-gray-500">Información inicial de la materia prima recibida.</p>
+    </div>
+
+    <!-- Formulario -->
+    <form [formGroup]="entryForm()">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Campo: Proveedor -->
+        <div class="md:col-span-2">
+          <label for="proveedorId" class="block text-sm font-medium text-gray-700 mb-1">Proveedor *</label>
+          <select id="proveedorId" formControlName="proveedorId" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            <option value="">Seleccione un proveedor</option>
+            @for (prov of proveedores(); track prov.id) {
+              <option [value]="prov.id">{{ prov.nombre }}</option>
+            }  
+          </select>
+        </div>
+        
+        <!-- Campo: Producto -->
+        <div>
+          <label for="productoId" class="block text-sm font-medium text-gray-700 mb-1">Producto *</label>
+          <select id="productoId" formControlName="productoId" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            <option value="">Seleccione un producto</option>
+            @for (producto of productos(); track producto.id) {
+              <option [value]="producto.id">{{ producto.nombreProducto }}</option>
+            }
+          </select>
         </div>
 
-        <!-- Formulario -->
-        <form [formGroup]="entryForm()">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Campo: Proveedor -->
-                <div class="md:col-span-2">
-                    <label for="proveedor" class="block text-sm font-medium text-gray-700 mb-1">Proveedor</label>
-                   
-                    <select id="proveedor" formControlName="proveedor" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                         @for (prov of proveedores(); track prov.id  ) {
-                        <option>{{ prov.nombre}}</option>
-                         }  
-                    </select>
-                </div>
-                
-                <!-- Campo: Producto -->
-                <div>
-                    <label for="producto" class="block text-sm font-medium text-gray-700 mb-1">Producto</label>
-                    <select id="producto" formControlName="producto" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                        @for (producto of productos(); track producto.id) {
-                        <option>{{producto.nombreProducto}}</option>}
-                        
-                    </select>
-                </div>
+        <!-- Resto de los campos permanecen igual -->
+        <!-- Campo: Peso de Ingreso -->
+        <div>
+          <label for="pesoIngresoKg" class="block text-sm font-medium text-gray-700 mb-1">Peso de Ingreso (Kg) *</label>
+          <input type="number" id="pesoIngresoKg" formControlName="pesoIngresoKg" step="0.01" placeholder="Ej: 50.25" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        </div>
 
-                <!-- Campo: Peso de Ingreso -->
-                <div>
-                    <label for="peso-ingreso" class="block text-sm font-medium text-gray-700 mb-1">Peso de Ingreso (Kg)</label>
-                    <input type="number" id="peso-ingreso" formControlName="peso" step="0.01" placeholder="Ej: 50.25" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                </div>
+        <!-- Campo: Precio -->
+        <div>
+          <label for="precioPorKg" class="block text-sm font-medium text-gray-700 mb-1">Precio (por Kg) *</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">$</span>
+            <input type="number" id="precioPorKg" formControlName="precioPorKg" step="0.01" placeholder="Ej: 15000" class="pl-7 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+          </div>
+        </div>
 
-                <!-- Campo: Precio -->
-                <div>
-                    <label for="precio" class="block text-sm font-medium text-gray-700 mb-1">Precio (por Kg)</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">$</span>
-                        <input type="number" id="precio" formControlName="precio" step="0.01" placeholder="Ej: 15000" class="pl-7 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                </div>
+        <!-- CAMPO AÑADIDO: Fecha de Ingreso -->
+        <div>
+          <label for="fechaIngreso" class="block text-sm font-medium text-gray-700 mb-1">Fecha de Ingreso *</label>
+          <input type="date" id="fechaIngreso" formControlName="fechaIngreso" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        </div>
 
-                <!-- CAMPO AÑADIDO: Fecha de Ingreso -->
-                <div>
-                    <label for="fecha-ingreso" class="block text-sm font-medium text-gray-700 mb-1">Fecha de Ingreso</label>
-                    <input type="date" id="fecha-ingreso" formControlName="fecha" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                </div>
+        <!-- Campo: Número de Lote/Factura del Proveedor -->
+        <div class="md:col-span-2">
+          <label for="lote-proveedor" class="block text-sm font-medium text-gray-700 mb-1">Lote/Factura Proveedor</label>
+          <input type="text" id="lote-proveedor" formControlName="loteProveedorRef" name="lote-proveedor" placeholder="Ej: FAC-12345" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        </div>
+      </div>
 
-                 <!-- Campo: Número de Lote/Factura del Proveedor (ahora en ancho completo) -->
-                <div class="md:col-span-2">
-                    <label for="lote-proveedor" class="block text-sm font-medium text-gray-700 mb-1">Lote/Factura Proveedor</label>
-                    <input type="text" id="lote-proveedor" formControlName="factura" name="lote-proveedor" placeholder="Ej: FAC-12345" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-            </div>
-
-            <!-- Botón de Acción -->
-            <div class="mt-8">
-                <button [disabled]="!entryForm().valid" (keyup.enter)="sendForm()" (click)="sendForm()" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                    Guardar Lote y Dejar Pendiente
-                </button>
-            </div>
-        </form>
-    </div>
-</div>    
+      <!-- Botón de Acción -->
+      <div class="mt-8">
+        <button [disabled]="!entryForm().valid" (click)="sendForm()" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+          Guardar Lote y Dejar Pendiente
+        </button>
+      </div>
+    </form>
+  </div>
+</div> 
 
