@@ -1,6 +1,7 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, signal, computed, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { LoteService } from '../../services/lote.service';
+import { loteResponse } from '../../interfaces/lote';
 
 @Component({
   selector: 'app-lotes-list',
@@ -11,8 +12,22 @@ import { LoteService } from '../../services/lote.service';
 })
 export class LotesListComponent implements OnInit  {
   loteService = inject(LoteService);
+  lotes = signal<loteResponse[]>([]);
+
   ngOnInit(): void {
+    this.cargarLotes();
       //console.log(this.loteService.lotes())
+  };
+  cargarLotes(){
+    this.loteService.verLotes()
+    .subscribe({
+      next: (data)=>{
+        this.lotes.update(()=>Array.isArray(data) ? data : [data]);
+      },
+      error: (error)=>{
+        alert(`Error al cargar los datos: ${error.error}`);
+      }
+    })
   }
 
 }
