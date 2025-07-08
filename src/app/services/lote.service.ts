@@ -20,5 +20,8 @@ export class LoteService {
   verLotes(){
     return this.http.get<loteResponse>(this.apiUrl);
   };
+  getLoteById(id: number){
+    return this.http.get<loteResponse>(`${this.apiUrl}/${id}`);
+  };
  
 }

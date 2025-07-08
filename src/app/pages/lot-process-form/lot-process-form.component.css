@@ -1,0 +1,14 @@
+/* Animación de spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Estilos para inputs inválidos */
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border-color: #f87171;
+  box-shadow: 0 0 0 1px #f87171;
+}

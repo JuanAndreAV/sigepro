@@ -36,7 +36,7 @@ export const routes: Routes = [
                 component: LotesListComponent
             },
             {
-                path: 'process',
+                path: 'process/:id',
                 component: LotProcessFormComponent
             },
             {
