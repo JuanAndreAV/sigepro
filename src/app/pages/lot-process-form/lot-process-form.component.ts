@@ -116,7 +116,8 @@ export class LotProcessFormComponent implements OnInit {
   );
     const procesamientoData: CreateProcesamientoDto = {
       usuarioProcesoId: Number(this.lote()?.usuarioRegistro.id),
-      mermasDetalle: mermasDetalle
+      mermasDetalle: mermasDetalle,
+      lote: this.lote()
     };
 
     console.log('Datos a enviar:', procesamientoData);
@@ -127,7 +128,7 @@ export class LotProcessFormComponent implements OnInit {
         alert('Proceso registrado con éxito!')
       },
       error: (error)=>{
-        console.log(`Error: ${error.error}`)
+        console.log(`Error: ${error.error.message}`)
       }
     })
   }
