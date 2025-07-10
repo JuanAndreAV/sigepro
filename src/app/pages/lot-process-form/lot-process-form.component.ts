@@ -4,6 +4,7 @@ import { LoteService } from '../../services/lote.service';
 import { loteResponse } from '../../interfaces/lote';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { CreateProcesamientoDto } from '../../interfaces/procesamiento';
 
 @Component({
   selector: 'app-lot-process-form',
@@ -106,17 +107,28 @@ export class LotProcessFormComponent implements OnInit {
   onSubmit(): void {
     if (this.processForm.invalid || !this.lote()) return;
 
-    const procesamientoData = {
-      loteId: this.lote()!.id,
-      mermas: this.processForm.value.mermas,
-      pesoNeto: this.calcularPesoNeto(),
-      rendimiento: this.calcularRendimiento(),
-      observaciones: this.processForm.value.observaciones,
-      usuarioProcesoId: 1 // Reemplazar con ID de usuario real
+    const mermasDetalle: Record<string, number> = this.processForm.value.mermas.reduce(
+    (acc: Record<string, number>, merma: { nombre: string; peso: string }) => {
+    acc[merma.nombre] = parseFloat(merma.peso);
+    return acc;
+  },
+  {}
+  );
+    const procesamientoData: CreateProcesamientoDto = {
+      usuarioProcesoId: Number(this.lote()?.usuarioRegistro.id),
+      mermasDetalle: mermasDetalle
     };
 
     console.log('Datos a enviar:', procesamientoData);
-    // Aquí llamarías al servicio para guardar:
-    // this.loteService.guardarProcesamiento(procesamientoData).subscribe(...);
+    
+    this.loteService.procesarLote(Number(this.lote()?.id), procesamientoData)
+    .subscribe({
+      next: ()=>{
+        alert('Proceso registrado con éxito!')
+      },
+      error: (error)=>{
+        console.log(`Error: ${error.error}`)
+      }
+    })
   }
 }

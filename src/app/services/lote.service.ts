@@ -1,6 +1,8 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { loteResponse, Lote } from '../interfaces/lote';
 import { HttpClient } from '@angular/common/http';
+import { CreateProcesamientoDto } from '../interfaces/procesamiento';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,10 @@ export class LoteService {
   };
   getLoteById(id: number){
     return this.http.get<loteResponse>(`${this.apiUrl}/${id}`);
+  };
+   procesarLote(loteId: number, data: CreateProcesamientoDto): Observable<any> {
+    const url = `${this.apiUrl}/${loteId}/procesar`;
+    return this.http.post(url, data);
   };
  
 }
