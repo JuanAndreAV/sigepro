@@ -1,3 +1,5 @@
+import { loteResponse } from "./lote";
+
 export interface CreateProcesamientoDto {
   mermasDetalle: Record<string, number>;
   usuarioProcesoId: number;
@@ -11,5 +13,8 @@ export interface Procesamiento {
   pesoNetoFinalKg: string;
   rendimientoCalculado: string;
   creadoEn: string;
+  lote?: loteResponse | null,
+  
+
   // Agrega otras propiedades si es necesario
 }

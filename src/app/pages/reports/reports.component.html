@@ -11,7 +11,7 @@
 
   <!-- Mensaje de error -->
   @if (error()) {
-    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded" role="alert">
       <p>{{ error() }}</p>
       <button 
         (click)="loadProcesamientos()"
@@ -25,37 +25,53 @@
   @if (!loading() && !error()) {
     <div class="bg-white rounded-lg shadow overflow-hidden">
       <!-- Encabezado de la tabla -->
-      <div class="grid grid-cols-12 bg-gray-100 p-4 font-medium text-gray-700  sm:grid">
-        <div class="col-span-2">Fecha</div>
-        <div class="col-span-2">ID Proceso</div>
-        <div class="col-span-3">Mermas</div>
-        <div class="col-span-2">Peso Neto</div>
+      <div class=" grid-cols-12 bg-gray-100 p-4 font-medium text-gray-700 hidden sm:grid">
+        <div class="col-span-2">Fecha Proceso</div>
+        <div class="col-span-2">Producto</div>
+        <div class="col-span-1">Peso Ingreso</div>
+        <div class="col-span-1">Mermas</div>
+        <div class="col-span-1">Peso Neto</div>
         <div class="col-span-2">Rendimiento</div>
+        <div class="col-span-1">Proveedor</div>
         <div class="col-span-1">Acciones</div>
       </div>
 
       <!-- Items de procesamiento -->
       @for (procesamiento of procesamientos(); track procesamiento.id) {
-        <div class="grid grid-cols-1 sm:grid-cols-12 p-4 border-b border-gray-200 hover:bg-gray-50 transition-colors">
-          <!-- Fecha -->
+        <div class="grid grid-cols-1 sm:grid-cols-12 p-4 border-b border-gray-200 hover:bg-gray-50 transition-colors gap-2 relative">
+          <!-- Fecha Proceso -->
           <div class="col-span-2 mb-2 sm:mb-0">
-            <div class="text-sm text-gray-500 sm:hidden">Fecha</div>
+            <div class="text-sm text-gray-500 sm:hidden">Fecha Proceso</div>
             <div class="font-medium">
-              {{ formatFecha(procesamiento.fechaProcesamiento) }}
+             Inicial: {{ procesamiento.lote?.creadoEn | date:'dd/MM/yyyy' }}
             </div>
             <div class="text-xs text-gray-500">
-              {{ procesamiento.fechaProcesamiento  }}
+             Final: {{ procesamiento.fechaProcesamiento | date:'dd/MM/yyyy' }}
             </div>
           </div>
 
-          <!-- ID -->
+          <!-- Producto -->
           <div class="col-span-2 mb-2 sm:mb-0">
-            <div class="text-sm text-gray-500 sm:hidden">ID Proceso</div>
-            <div>#{{ procesamiento.id }}</div>
+            <div class="text-sm text-gray-500 sm:hidden">Producto</div>
+            <div class="font-medium">{{ procesamiento.lote?.producto?.nombreProducto }}</div>
+            <div class="text-xs text-gray-500">
+              Ref: {{ procesamiento.lote?.loteProveedorRef }}
+            </div>
+          </div>
+
+          <!-- Peso Ingreso -->
+          <div class="col-span-1 mb-2 sm:mb-0">
+            <div class="text-sm text-gray-500 sm:hidden">Peso Ingreso</div>
+            <div class="font-medium">
+              {{ procesamiento.lote?.pesoIngresoKg }} kg
+            </div>
+            <div class="text-xs text-gray-500">
+              {{ procesamiento.lote?.creadoEn | date:'dd/MM/yy' }}
+            </div>
           </div>
 
           <!-- Mermas -->
-          <div class="col-span-3 mb-2 sm:mb-0">
+          <div class="col-span-1 mb-2 sm:mb-0">
             <div class="text-sm text-gray-500 sm:hidden">Mermas</div>
             <div class="flex flex-wrap gap-1">
               @for (merma of getMermasArray(procesamiento.mermasDetalle); track merma.nombre) {
@@ -63,53 +79,114 @@
                   {{ merma.nombre }}: {{ merma.valor }}kg
                 </span>
               }
+              @if (!procesamiento.mermasDetalle) {
+                <span class="text-gray-400 text-xs">Sin mermas</span>
+              }
             </div>
           </div>
 
           <!-- Peso Neto -->
-          <div class="col-span-2 mb-2 sm:mb-0">
+          <div class="col-span-1 mb-2 sm:mb-0">
             <div class="text-sm text-gray-500 sm:hidden">Peso Neto</div>
             <div class="font-medium">
               {{ procesamiento.pesoNetoFinalKg }} kg
+            </div>
+            <div class="text-xs text-gray-500">
+              {{ (procesamiento.pesoNetoFinalKg | number) + 'kg' }}
             </div>
           </div>
 
           <!-- Rendimiento -->
           <div class="col-span-2 mb-2 sm:mb-0">
             <div class="text-sm text-gray-500 sm:hidden">Rendimiento</div>
-            <div class="flex items-center">
-              <span class="font-medium mr-1">{{ procesamiento.rendimientoCalculado }}%</span>
-              <span >
-                @if (procesamiento.rendimientoCalculado >= 95) {
-                  <!-- Ícono de check -->
+            <div class="flex items-center gap-1">
+              <span class="font-medium">{{ procesamiento.rendimientoCalculado }}%</span>
+              <span [ngClass]="{
+                'text-green-500': +procesamiento.rendimientoCalculado >= 90,
+                'text-yellow-500': +procesamiento.rendimientoCalculado >= 70 && +procesamiento.rendimientoCalculado < 90,
+                'text-red-500': +procesamiento.rendimientoCalculado < 70
+              }">
+                @if (+procesamiento.rendimientoCalculado >= 90) {
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                   </svg>
-                } @else if (procesamiento.rendimientoCalculado >= 85) {
-                  <!-- Ícono de alerta -->
+                } @else if (+procesamiento.rendimientoCalculado >= 70 ) {
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                   </svg>
                 } @else {
-                  <!-- Ícono de error -->
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                   </svg>
                 }
               </span>
             </div>
+            <div class="text-xs text-gray-500">
+              {{ (+procesamiento.rendimientoCalculado >= 90 ? 'Excelente' : (+procesamiento.rendimientoCalculado >= 70 ? 'Aceptable' : 'Bajo')) }}
+            </div>
           </div>
 
-          <!-- Acciones -->
-          <div class="col-span-1 flex justify-end">
-            <a 
-             
-              class="text-blue-600 hover:text-blue-800">
+          <!-- Proveedor -->
+          <div class="col-span-1 mb-2 sm:mb-0">
+            <div class="text-sm text-gray-500 sm:hidden">Proveedor</div>
+            <div class="font-medium truncate" [title]="procesamiento.lote?.proveedor?.nombre">
+              {{ procesamiento.lote?.proveedor?.nombre }}
+            </div>
+            <div class="text-xs text-gray-500 truncate">
+              {{ procesamiento.lote?.proveedor?.email }}
+            </div>
+          </div>
+
+          <!-- Acciones con Popup -->
+          <div class="col-span-1 flex justify-end items-start relative">
+            <button 
+              class="text-blue-600 hover:text-blue-800 transition-colors relative"
+              (mouseenter)="showDetails(procesamiento.id)"
+              (mouseleave)="hideDetails()">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                 <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
               </svg>
-            </a>
+              
+              <!-- Popup de detalles -->
+              @if (hoveredProcesamientoId === procesamiento.id) {
+                <div class="static right-0 z-10 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 p-4 transform translate-y-2">
+                  <h3 class="font-bold text-gray-800 mb-2">Detalles del Procesamiento</h3>
+                  <div class="space-y-2 text-sm">
+                    <div>
+                      <span class="font-medium text-gray-600">Nombre:</span>
+                      <span class="ml-2">{{ procesamiento.lote?.proveedor?.nombre }}</span>
+                    </div>
+                    <div>
+                      <span class="font-medium text-gray-600">Ingreso a planta:</span>
+                      <span class="ml-2">{{ procesamiento.lote?.fechaIngreso| date:'dd/MM/yyyy HH:mm' }}</span>
+                    </div>
+                    <div>
+                      <span class="font-medium text-gray-600">Registrado:</span>
+                      <span class="ml-2">{{ procesamiento.creadoEn | date:'dd/MM/yyyy HH:mm' }}</span>
+                    </div>
+                    <div>
+                      <span class="font-medium text-gray-600">Total mermas:</span>
+                      <span class="ml-2">
+                        @if (procesamiento.mermasDetalle ) {
+                          {{ getTotalMermas(procesamiento.mermasDetalle) | number:'1.2-2' }} kg
+                        } @else {
+                          Sin mermas registradas
+                        }
+                      </span>
+                    </div>
+                    <div>
+                      <span class="font-medium text-gray-600">Contacto:</span>
+                      <span class="ml-2">{{ procesamiento.lote?.proveedor?.email }}</span>
+                    </div>
+                    <div>
+                      <span class="font-medium text-gray-600">Teléfono:</span>
+                      <span class="ml-2">{{ procesamiento.lote?.proveedor?.telefono }}</span>
+                    </div>
+                  </div>
+                </div>
+              }
+            </button>
           </div>
         </div>
       } @empty {
@@ -118,26 +195,5 @@
         </div>
       }
     </div>
-
-    <!-- Paginación 
-    <div class="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div class="text-sm text-gray-600">
-        Mostrando {{ currentPage * pageSize + 1 }}-{{ Math.min((currentPage + 1) * pageSize, totalItems) }} de {{ totalItems }} registros
-      </div>
-      <div class="flex gap-2">
-        <button 
-          [disabled]="currentPage === 0"
-          class="px-3 py-1 border rounded-md disabled:opacity-50 hover:bg-gray-100 transition-colors"
-          (click)="previousPage()">
-          Anterior
-        </button>
-        <button 
-          [disabled]="(currentPage + 1) * pageSize >= totalItems"
-          class="px-3 py-1 border rounded-md disabled:opacity-50 hover:bg-gray-100 transition-colors"
-          (click)="nextPage()">
-          Siguiente
-        </button>
-      </div>
-    </div>-->
   }
 </div>

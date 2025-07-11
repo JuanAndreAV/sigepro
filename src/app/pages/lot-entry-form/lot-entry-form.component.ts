@@ -66,7 +66,7 @@ sendForm() {
       precioPorKg: parseFloat(this.entryForm().value.precioPorKg),
       loteProveedorRef: this.entryForm().value.loteProveedorRef || undefined,
       estado: 'Pendiente de Procesar',
-      creadoEn: new Date(),
+      //creadoEn: new Date(),
       proveedorId: Number(this.entryForm().value.proveedorId), // Convertir a número
       productoId: Number(this.entryForm().value.productoId),   // Convertir a número
       usuarioRegistroId: 1 // Reemplaza con el ID real del usuario logueado

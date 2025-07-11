@@ -1,6 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { LoteService } from '../../services/lote.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
+import { Procesamiento } from '../../interfaces/procesamiento';
+
 import { RouterModule } from '@angular/router';
 interface MermaItem {
   nombre: string;
@@ -8,15 +10,17 @@ interface MermaItem {
 }
 @Component({
   selector: 'app-reports',
-  imports: [CommonModule, RouterModule],
+  standalone: true,
+  imports: [CommonModule, NgClass],
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.css'
 })
 export class ReportsComponent implements OnInit {
  loteService = inject(LoteService);
- procesamientos = signal<any[]>([]);
+ procesamientos = signal<Procesamiento[]>([]);
   loading = signal(true);
   error = signal<string | null>(null);
+  hoveredProcesamientoId: number | null = null;
 
   // Paginación
   currentPage = 0;
@@ -25,6 +29,7 @@ export class ReportsComponent implements OnInit {
 
 ngOnInit(): void {
     this.loadProcesamientos();
+    
   }
 
   loadProcesamientos(): void {
@@ -36,6 +41,7 @@ ngOnInit(): void {
         this.procesamientos.set(data);
         this.totalItems = data.length;
         this.loading.set(false);
+        console.log(this.procesamientos())
       },
       error: (err) => {
         console.error('Error al cargar procesamientos:', err);
@@ -51,6 +57,18 @@ ngOnInit(): void {
       valor
     }));
   }
+  showDetails(id: number): void {
+  this.hoveredProcesamientoId = id;
+}
+
+hideDetails(): void {
+  this.hoveredProcesamientoId = null;
+}
+
+getTotalMermas(mermasDetalle: { [key: string]: number }): number {
+  return Object.values(mermasDetalle).reduce((sum, current) => sum + current, 0);
+}
+
 
   // Navegación de paginación
   nextPage(): void {

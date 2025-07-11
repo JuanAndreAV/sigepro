@@ -43,12 +43,12 @@
                             <p class="text-gray-900 whitespace-no-wrap">{{lote.producto.nombreProducto}}</p>
                         </td>
                         <td class="px-5 py-4 text-sm">
-                            <p class="text-gray-900 whitespace-no-wrap">{{lote.creadoEn}}</p>
+                            <p class="text-gray-900 whitespace-no-wrap">{{lote.creadoEn | date: 'dd/MM/yyyy'}}</p>
                         </td>
                         <td class="px-5 py-4 text-sm text-center">
                             <span class="relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
                                 <span aria-hidden="true" class="absolute inset-0 bg-yellow-200 opacity-50 rounded-full"></span>
-                                <span class="relative">Pendiente</span>
+                                <span class="relative">{{ lote.estado}}</span>
                             </span>
                         </td>
                         @if (lote.estado === "Finalizado") {

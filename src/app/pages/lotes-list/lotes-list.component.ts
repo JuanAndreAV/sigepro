@@ -1,12 +1,13 @@
 import { Component, signal, computed, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { LoteService } from '../../services/lote.service';
+import { CommonModule } from '@angular/common';
 import { loteResponse } from '../../interfaces/lote';
 
 @Component({
   selector: 'app-lotes-list',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './lotes-list.component.html',
   styleUrl: './lotes-list.component.css'
 })
