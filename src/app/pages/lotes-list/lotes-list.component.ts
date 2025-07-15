@@ -11,7 +11,7 @@ import { loteResponse } from '../../interfaces/lote';
   templateUrl: './lotes-list.component.html',
   styleUrl: './lotes-list.component.css'
 })
-export class LotesListComponent implements OnInit  {
+export class LotesListComponent   {
   loteService = inject(LoteService);
   lotes = signal<loteResponse[]>([]);
 

@@ -138,7 +138,7 @@
           </div>
 
           <!-- Acciones con Popup -->
-          <div class="col-span-1 flex justify-end items-start relative">
+          <div class="relative col-span-1 flex justify-end items-start  ">
             <button 
               class="text-blue-600 hover:text-blue-800 transition-colors relative"
               (mouseenter)="showDetails(procesamiento.id)"
@@ -150,7 +150,7 @@
               
               <!-- Popup de detalles -->
               @if (hoveredProcesamientoId === procesamiento.id) {
-                <div class="static right-0 z-10 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 p-4 transform translate-y-2">
+                <div class="absolute right-0 z-10 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 p-4 transform translate-y-2">
                   <h3 class="font-bold text-gray-800 mb-2">Detalles del Procesamiento</h3>
                   <div class="space-y-2 text-sm">
                     <div>

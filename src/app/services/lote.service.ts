@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoteService {
- //lotes = signal<CreateLoteDTO[]>([]);
+ lotes = signal<loteResponse[]>([]);
  //updatedLotes = computed(()=>  this.lotes())
  http = inject(HttpClient);
  private apiUrl = 'http://localhost:3000';

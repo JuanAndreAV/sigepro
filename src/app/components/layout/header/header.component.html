@@ -1,26 +1,30 @@
-<header class="bg-white shadow-sm p-4 flex justify-between items-center">
+<header class="bg-white border-b border-gray-100 px-6 py-3 flex justify-between items-center">
+  <!-- Logo/Nombre de compañía - Más sencillo -->
   <div>
-    <h1 class="text-xl font-bold text-gray-800">{{environment.company_name}}</h1>
-    </div>
+    <h1 class="text-lg font-semibold text-gray-900 tracking-tight">{{environment.company_name}}</h1>
+  </div>
 
-  <div class="flex items-center space-x-5">
-    <button class="relative text-gray-500 hover:text-gray-700">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-      <span class="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
+  <!-- Menú de usuario - Más limpio -->
+  <div class="flex items-center space-x-4">
+    <!-- Notificación (icono más discreto) -->
+    <button class="p-1 text-gray-400 hover:text-gray-600 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+      </svg>
     </button>
 
-    <div class="relative">
-      <button class="flex items-center space-x-2">
-        <img src="https://via.placeholder.com/40" alt="Avatar" class="w-8 h-8 rounded-full">
-        <span class="hidden md:block font-medium text-gray-700">Usuario</span>
-        <svg class="hidden md:block w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+    <!-- Avatar con dropdown - Versión compacta -->
+    <div class="relative group">
+      <button class="flex items-center focus:outline-none">
+        <img src="https://via.placeholder.com/40" alt="User" class="w-7 h-7 rounded-full">
       </button>
-
-      <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 hidden">
-        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mi Perfil</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Configuración</a>
-        <div class="border-t border-gray-100"></div>
-        <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Cerrar Sesión</a>
+      
+      <!-- Dropdown (solo aparece al hover) -->
+      <div class="absolute right-0 mt-1 w-40 bg-white rounded-md shadow-md py-1 z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 border border-gray-100">
+        <a href="#" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50">Mi Perfil</a>
+        <a href="#" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50">Configuración</a>
+        <div class="border-t border-gray-100 my-1"></div>
+        <a href="#" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50">Cerrar Sesión</a>
       </div>
     </div>
   </div>

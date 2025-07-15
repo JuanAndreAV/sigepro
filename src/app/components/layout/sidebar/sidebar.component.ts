@@ -9,43 +9,45 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+year = new Date().getFullYear();
+
  routes = [
   {
     id: 1,
     path: '/dashboard/home',
     title: 'Dashboard',
-    icon: 'dashboard',
+    icon: 'fa-solid fa-table-columns',
 
   },
   {
     id: 2,
     path: '/dashboard/entry',
     title: 'Nuevo Lote',
-    icon: 'entry',
+    icon: 'fa-regular fa-industry',
   },
   {
     id: 3,
     path: '/dashboard/reports',
     title: 'Reportes',
-    icon: 'report',
+    icon: 'fa-solid fa-chart-bar',
   },
   {
     id: 4,
     path: '/dashboard/lotes-list',
     title: 'Gestión de Lotes',
-    icon: 'list',
+    icon: 'fa-solid fa-list-check',
   },
   {
     id: 5,
     path: '/dashboard/gestion-productos',
     title: 'Gestión de Productos',
-    icon: 'product',
+    icon: 'fa-solid fa-bacon',
   },
   {
     id: 6,
     path: '/dashboard/proveedores',
     title: 'Proveedores',
-    icon: 'lot-entry',
+    icon: 'fa-solid fa-truck-fast',
   }
  ]
 }

@@ -1,15 +1,38 @@
- 
-   <div class="mb-8 flex items-center justify-center">
-    <img src="/assets/logo-sigepro-white.svg" alt="SIGEPRO Logo" class="h-10">
-   </div>
-   
-   <nav class="flex-grow">
+<div class="h-full flex flex-col bg-gradient-to-b from-blue-600 to-blue-800 text-white transition-all duration-300 ease-in-out hover:w-64 w-20 overflow-hidden">
+  <!-- Logo con efecto de expansión -->
+  <div class="mb-8 flex items-center justify-center p-4 transition-all duration-300">
+    <img src="/assets/logo-sigepro-white.svg" alt="SIGEPRO Logo" 
+         class="h-10 transition-all duration-300 hover:scale-110">
+  </div>
+  
+  <!-- Menú de navegación -->
+  <nav class="flex-grow px-2">
     @for(item of routes; track item.id) {
-            <a [routerLink]="item.path" 
-            routerLinkActive="bg-blue-800" 
-            class="block py-2 px-4 hover:bg-gray-700 rounded">{{item.title}}</a>
+      <a [routerLink]="item.path" 
+         routerLinkActive="bg-white text-blue-800 font-semibold shadow-md" 
+         class="flex items-center py-3  px-4 my-1 rounded-lg transition-all duration-200
+                hover:bg-white hover:text-blue-800 hover:shadow-md hover:translate-x-2
+                group overflow-hidden">
+        <!-- Icono (puedes usar iconos de FontAwesome, Material Icons, etc.) -->
+        <span class="{{item.icon}} material-icons mr-4 text-xl transition-all duration-300">
+        
+         
+        </span>
+        <!-- Texto con efecto de aparición -->
+        <span class="whitespace-nowrap transition-all duration-300 opacity-0 group-hover:opacity-100">
+          {{item.title}}
+        </span>
+      </a>
     }
-    
-   </nav>
+  </nav>
+
+  <!-- Footer del sidebar (opcional) -->
+  <div class="p-4 border-t border-blue-500 mt-auto">
+
+    <div class="flex items-center justify-center  hover:opacity-100 transition-opacity duration-300">
+      <span class="text-sm">SIGEPRO © {{year}}</span>
+    </div>
+  </div>
+</div>
 
 
