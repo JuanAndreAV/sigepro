@@ -7,7 +7,7 @@ export interface Dashboard {
 
 export interface RendimientoPorProveedor {
     nombre:      string;
-    rendimiento: string;
+    rendimiento: number;
 }
 
 

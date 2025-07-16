@@ -17,5 +17,14 @@
     <h3 class="text-lg font-semibold mb-2">Rendimiento Promedio por Proveedor</h3>
     <div class="h-64 bg-gray-200 rounded flex items-center justify-center text-gray-500">
      Gráfica de Barras (Rendimiento por Proveedor)
+     
+  <canvas
+    baseChart
+    [data]="barChartData()"
+    [options]="barChartOptions"
+    [type]="barChartType"
+  >
+  </canvas>
+
     </div>
    </div>
